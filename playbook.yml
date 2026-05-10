@@ -4,14 +4,18 @@
   become: yes
 
   tasks:
-    - name: Copy WAR file to Tomcat
-      copy:
-        src: "/var/snap/jenkins/5022/workspace/mavenweb/target/mavenweb.war"
-        dest: "/opt/tomcat/webapps/mavenweb.war"
-        remote_src: no
 
     - name: Stop Tomcat
       shell: /opt/tomcat/bin/shutdown.sh
 
+    - name: Copy WAR file to Tomcat
+      copy:
+        src: "/var/snap/jenkins/5022/workspace/mavenweb/target/mavenweb.war"
+        dest: "/opt/tomcat/webapps/mavenweb.war"
+
     - name: Start Tomcat
       shell: /opt/tomcat/bin/startup.sh
+
+    - name: Wait for Tomcat
+      pause:
+        seconds: 15
