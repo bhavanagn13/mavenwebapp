@@ -10,12 +10,8 @@
 
     - name: Copy WAR file to Tomcat
       copy:
-        src: "/var/snap/jenkins/5022/workspace/mavenweb/target/mavenweb.war"
+        src: "{{ lookup('env','WORKSPACE') }}/target/mavenweb.war"
         dest: "/opt/tomcat/webapps/mavenweb.war"
 
     - name: Start Tomcat
       shell: /opt/tomcat/bin/startup.sh
-
-    - name: Wait for Tomcat
-      pause:
-        seconds: 15
